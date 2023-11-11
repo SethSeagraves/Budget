@@ -92,6 +92,7 @@ def main_page():
         projected_budget_right_column(df, right_column)
     else:
         default_budget_right_column(df, right_column)
+        
 
 if __name__ == "__main__":
     # if "logged_in" not in st.session_state:
