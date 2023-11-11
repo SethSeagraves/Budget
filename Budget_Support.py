@@ -153,7 +153,7 @@ def display_pi_chart(list_of_purchase_totals):
     st.pyplot(fig)
 
 def purchase_totals_dict(df):
-    with open("/Users/sethseagraves/Documents/Code/Budgeting Web App/config.yml") as f:
+    with open("config.yml") as f:
         config = yml.load(f, Loader = yml.FullLoader)
 
     categories = list(config.keys())
@@ -205,7 +205,7 @@ def display_purchases_bar_chart(current_df):
         with right_column:
             year = st.selectbox("Select Year", ["2023"])
         
-        df = pd.read_csv("/Users/sethseagraves/Documents/Code/Budgeting Web App/Budgeting Web App Data/purchases {}{}.csv".format(month, year)) # Mac)
+        df = pd.read_csv("Budgeting Web App Data/purchases {}{}.csv".format(month, year)) # Mac)
 
         display_categories = purchases_options(df)
         purchase_totals = purchase_totals_dict(df)
@@ -231,13 +231,13 @@ def purchase_list(df):
 def display_saving_bar_chart():
     st.title("Savings")
 
-    with open("/Users/sethseagraves/Documents/Code/Budgeting Web App/savings_config.yml") as f:
+    with open("savings_config.yml") as f:
         savings_rates = yml.load(f, Loader = yml.Loader)
 
     total_savings = 0
     retirement_total = 0
 
-    file_dir = "/Users/sethseagraves/Documents/Code/Budgeting Web App/Budgeting Web App Data"
+    file_dir = "Budgeting Web App Data"
 
     for filename in os.listdir(file_dir):
         f = os.path.join(file_dir, filename)
@@ -260,7 +260,7 @@ def display_saving_bar_chart():
 
         st.caption("Total Savings Rate: {}%".format(savings_rates["Vacation"][0] + savings_rates["House"][0] + savings_rates["Car"][0] + savings_rates["Wedding"][0] + savings_rates["Emergency"][0]))
 
-        with open("/Users/sethseagraves/Documents/Code/Budgeting Web App/savings_config.yml", "w") as f:
+        with open("savings_config.yml", "w") as f:
             yml.dump(savings_rates, f)
 
         

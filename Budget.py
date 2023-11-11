@@ -16,18 +16,18 @@ time = datetime.now().strftime("%H:%M:%S")
 st.set_page_config(page_title = "Budget Tracker", page_icon = ":money_with_wings:", layout = "wide")
 
 def main_page():
-    if os.path.exists("/Users/sethseagraves/Documents/Code/Budgeting Web App/Budgeting Web App Data/purchases {}{}.csv".format(month, year)):
+    if os.path.exists("Budgeting Web App Data/purchases {}{}.csv".format(month, year)):
         # --- Set up CSV file to store purchases ---
         # df = pd.read_csv("Budgeting Web App Data/purchases {}{}.csv".format(month, year)) # Windows
         # df = pd.read_csv("/media/sseagraves0513/Seth's USB/Work Computer/Documents/Python Code/Websites/Budgeting Web App/Budgeting Web App Data/purchases {}{}.csv".format(month, year)) # Raspberry Pi
-        df = pd.read_csv("/Users/sethseagraves/Documents/Code/Budgeting Web App/Budgeting Web App Data/purchases {}{}.csv".format(month, year)) # Mac
+        df = pd.read_csv("Budgeting Web App Data/purchases {}{}.csv".format(month, year)) # Mac
     else: # --- Create a new file for the new month
-        with open("/Users/sethseagraves/Documents/Code/Budgeting Web App/Budgeting Web App Data/purchases {}{}.csv".format(month, year), 'w') as file:
+        with open("Budgeting Web App Data/purchases {}{}.csv".format(month, year), 'w') as file:
             writer = csv.writer(file)
             writer.writerow(["Month", "Day", "Year", "Time", "Purchaser", "Category", "Place", "Amount", "Notes"])
-        df = pd.read_csv("/Users/sethseagraves/Documents/Code/Budgeting Web App/Budgeting Web App Data/purchases {}{}.csv".format(month, year)) # Mac
+        df = pd.read_csv("Budgeting Web App Data/purchases {}{}.csv".format(month, year)) # Mac
 
-    with open("/Users/sethseagraves/Documents/Code/Budgeting Web App/config.yml", "r") as f:
+    with open("config.yml", "r") as f:
         config = yml.load(f, Loader = yml.FullLoader)
 
     left_column, right_column = st.columns((2,5)) # size of each column is 2/5th of the screen width (this is better than 1/3)
@@ -44,7 +44,7 @@ def main_page():
 
         # --- Purchase Category Dropdown ---
         categories_list = list(config.keys())
-        category = st.selectbox("Category", categories_list, key = "category_option")
+        category = st.selectbox("Category", categories_list) # , key = "category_option"
 
         # --- Initialize purchase place so if statements work correctly ---
         purchase_place = None
@@ -73,12 +73,12 @@ def main_page():
         if submit_button:
             new_data = {"Month": month, "Day": day, "Year": year, "Time": time, "Purchaser": purchaser, "Category": category, "Place": purchase_place, "Amount": purchase_amount, "Notes": notes}
             df = pd.concat([df, pd.DataFrame([new_data])], ignore_index = True)
-            df.to_csv("/Users/sethseagraves/Documents/Code/Budgeting Web App/Budgeting Web App Data/purchases {}{}.csv".format(month, year), index = False)
+            df.to_csv("Budgeting Web App Data/purchases {}{}.csv".format(month, year), index = False)
             if new_entry:
-                with open("/Users/sethseagraves/Documents/Code/Budgeting Web App/config.yml") as f:
+                with open("config.yml") as f:
                     config = yml.load(f, Loader = yml.FullLoader)
                     config[category].append(new_entry)
-                with open("/Users/sethseagraves/Documents/Code/Budgeting Web App/config.yml", 'w') as f:
+                with open("config.yml", 'w') as f:
                     yml.dump(config, f)
 
             st.success("Purchase Entry Complete!")
