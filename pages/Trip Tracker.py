@@ -9,7 +9,7 @@ import csv
 month = datetime.now().strftime("%m")
 year = datetime.now().strftime("%Y")
 
-st.set_page_config(page_title = "Trip Tracker 111", page_icon = ":money_with_wings:", layout = "wide")
+st.set_page_config(page_title = "Trip Tracker", page_icon = ":money_with_wings:", layout = "wide")
 
 def main_page():
     if os.path.exists("pages/Trip Tracker Data/TripData {}{}.csv".format(month, year)):
@@ -23,7 +23,7 @@ def main_page():
     left_col, right_col = st.columns([1, 1])
     
     with left_col:
-        st.title("Enter Trip Distance")
+        st.title("Enter Trip Distance 111")
 
         date = st.date_input("Trip Data")
         distance = st.number_input("Trip Distance")
