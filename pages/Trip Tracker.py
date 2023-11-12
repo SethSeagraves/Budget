@@ -23,7 +23,7 @@ def main_page():
     left_col, right_col = st.columns([1, 1])
     
     with left_col:
-        st.title("Enter Trip Distance 111")
+        st.title("Enter Trip Distance")
 
         date = st.date_input("Trip Data")
         distance = st.number_input("Trip Distance")
